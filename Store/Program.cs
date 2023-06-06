@@ -1,4 +1,6 @@
+using Dapr.Client;
 using Refit;
+
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -52,6 +54,9 @@ public interface IStoreBackendClient
 
     [Get("/inventory/{productId}")]
     Task<int> GetInventory(string productId);
+
+    [Get("/secret/{secretStore}/{secretName}")]
+    Task<string> GetSecret(string secretStore, string secretName);
 }
 
 public class StoreBackendClient : IStoreBackendClient
@@ -73,5 +78,24 @@ public class StoreBackendClient : IStoreBackendClient
     {
         var client = _httpClientFactory.CreateClient("Products");
         return await RestService.For<IStoreBackendClient>(client).GetProducts();
+    }
+
+    public async Task<string> GetSecret(string secretStore, string secretName)
+    {
+        try
+        {
+            //const string DAPR_SECRET_STORE = "localsecretstore";
+            var client = new DaprClientBuilder().Build();
+
+            // Get secret from a local secret store
+            var secret = await client.GetSecretAsync(secretStore, secretName);
+            var secretValue = string.Join(", ", secret);
+
+            return (secretValue);
+        }
+        catch (Exception ex)
+        {
+            return (ex.Message);
+        }
     }
 }

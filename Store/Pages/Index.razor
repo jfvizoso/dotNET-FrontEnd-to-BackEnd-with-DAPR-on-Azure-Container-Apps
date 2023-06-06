@@ -50,6 +50,35 @@
         }
         _products = tmp.ToList();
 
+
+        _products.Add(new Product()
+            {
+                ProductId = "containerapptestssecrets-aaaa",
+                ProductName = await _storeBackendClient.GetSecret("containerapptestssecrets", "aaaa"),
+                Quantity = 666
+            });
+
+        _products.Add(new Product()
+            {
+                ProductId = "vaultsecrets-aaaa",
+                ProductName = await _storeBackendClient.GetSecret("vaultsecrets", "aaaa"),
+                Quantity = 666
+            });
+
+        _products.Add(new Product()
+            {
+                ProductId = "containerapptestssecrets-monkeyisland",
+                ProductName = await _storeBackendClient.GetSecret("containerapptestssecrets", "monkeyisland"),
+                Quantity = 666
+            }); 
+            
+        _products.Add(new Product()
+            {
+                ProductId = "vaultsecrets-patata",
+                ProductName = await _storeBackendClient.GetSecret("vaultsecrets", "patata"),
+                Quantity = 666
+            }); 
+
         _shouldRender = true;
     }
 }
