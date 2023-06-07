@@ -87,11 +87,13 @@ public class StoreBackendClient : IStoreBackendClient
             //const string DAPR_SECRET_STORE = "localsecretstore";
             var client = new DaprClientBuilder().Build();
 
-            // Get secret from a local secret store
-            var secret = await client.GetSecretAsync(secretStore, secretName);
-            var secretValue = string.Join(", ", secret);
+            //// Get secret from a local secret store
+            //var secret = await client.GetSecretAsync(secretStore, secretName);
+            //var secretValue = string.Join(", ", secret);
 
-            return (secretValue);
+            //return (secretValue);
+
+            return client.GetType().ToString();
         }
         catch (Exception ex)
         {
