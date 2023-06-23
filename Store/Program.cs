@@ -1,6 +1,7 @@
 using Dapr.Client;
+using Microsoft.EntityFrameworkCore;
 using Refit;
-
+using Store;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -25,6 +26,11 @@ builder.Services.AddHttpClient("Inventory", (httpClient) =>
     httpClient.DefaultRequestHeaders.Add("dapr-app-id", "Inventory");
 });
 
+//builder.Services.AddDbContext<VizoContext>(options =>
+//{
+//    options.UseSqlServer(builder.Configuration.GetConnectionString("VizoContext"));
+//});
+
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
@@ -37,6 +43,11 @@ app.UseStaticFiles();
 app.UseRouting();
 app.MapBlazorHub();
 app.MapFallbackToPage("/_Host");
+
+var optionsBuilder = new DbContextOptionsBuilder<VizoContext>();
+optionsBuilder.UseSqlServer("Data Source=vizo-sql-server.database.windows.net;Initial Catalog=vizodb; Authentication=Active Directory Default; Encrypt=True;");
+var context = new VizoContext(optionsBuilder.Options);
+context.Database.Migrate();
 
 app.Run();
 
