@@ -1,5 +1,4 @@
 using Dapr.Client;
-using Microsoft.EntityFrameworkCore;
 using Refit;
 using Store;
 
@@ -43,11 +42,6 @@ app.UseStaticFiles();
 app.UseRouting();
 app.MapBlazorHub();
 app.MapFallbackToPage("/_Host");
-
-var optionsBuilder = new DbContextOptionsBuilder<VizoContext>();
-optionsBuilder.UseSqlServer("Data Source=vizo-sql-server.database.windows.net;Initial Catalog=vizodb; Authentication=Active Directory Default; Encrypt=True;");
-var context = new VizoContext(optionsBuilder.Options);
-context.Database.Migrate();
 
 app.Run();
 

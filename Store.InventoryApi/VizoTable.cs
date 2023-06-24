@@ -1,4 +1,5 @@
-﻿namespace Store
+﻿namespace Store.InventoryApi
+
 {
     public class VizoEntity
     {

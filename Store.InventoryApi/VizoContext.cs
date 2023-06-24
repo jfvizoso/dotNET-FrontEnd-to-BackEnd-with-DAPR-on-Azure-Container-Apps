@@ -1,6 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 
-namespace Store
+namespace Store.InventoryApi
 {
     public class VizoContext : DbContext
     {

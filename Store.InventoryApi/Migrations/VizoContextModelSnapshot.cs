@@ -7,7 +7,7 @@ using Store;
 
 #nullable disable
 
-namespace Store.Migrations
+namespace Store.InventoryApi.Migrations
 {
     [DbContext(typeof(VizoContext))]
     partial class VizoContextModelSnapshot : ModelSnapshot

@@ -8,7 +8,7 @@ using Store;
 
 #nullable disable
 
-namespace Store.Migrations
+namespace Store.InventoryApi.Migrations
 {
     [DbContext(typeof(VizoContext))]
     [Migration("20230623122658_Initial")]
