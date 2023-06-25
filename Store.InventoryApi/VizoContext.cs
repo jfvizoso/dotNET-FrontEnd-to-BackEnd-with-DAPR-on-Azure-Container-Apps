@@ -7,6 +7,11 @@ namespace Store.InventoryApi
         public VizoContext(DbContextOptions options)
             : base(options)
         {
+            
+            //var conn = (System.Data.SqlClient.SqlConnection)this.Database.GetDbConnection();
+            //var credential = new Azure.Identity.DefaultAzureCredential();
+            //var token = credential.GetToken(new Azure.Core.TokenRequestContext(new[] { "https://database.windows.net/.default" }));
+            //conn.AccessToken = token.Token;
         }
 
         public DbSet<VizoEntity> Vizo { get; set; }
