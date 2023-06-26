@@ -21,15 +21,15 @@ app.MapGet("/inventory/{productId}", (string productId, IMemoryCache memoryCache
 {
     var memCacheKey = $"{productId}-inventory";
     int inventoryValue = -404;
-    
-    if(!memoryCache.TryGetValue(memCacheKey, out inventoryValue))
+
+    if (!memoryCache.TryGetValue(memCacheKey, out inventoryValue))
     {
         inventoryValue = new Random().Next(1, 100);
 
         var optionsBuilder = new DbContextOptionsBuilder<VizoContext>();
-        optionsBuilder.UseSqlServer("Server=tcp:vizo-sql-server.database.windows.net;Authentication=Active Directory Managed Identity;Encrypt=True;User Id=afc0352b-4272-4162-aa48-69ee65ca1a4b;Database=vizodb;");
+        optionsBuilder.UseSqlServer("Server=tcp:vizo-sql-server.database.windows.net;Authentication=Active Directory Default;Encrypt=True;User Id=afc0352b-4272-4162-aa48-69ee65ca1a4b;Database=vizodb;");
         var context = new VizoContext(optionsBuilder.Options);
-        inventoryValue = context.Vizo.Count();
+        inventoryValue = context.Vizo.Count() * 2;
 
         memoryCache.Set(memCacheKey, inventoryValue);
     }
