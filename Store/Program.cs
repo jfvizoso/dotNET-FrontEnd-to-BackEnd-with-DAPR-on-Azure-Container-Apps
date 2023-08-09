@@ -128,7 +128,7 @@ public class StoreBackendClient : IStoreBackendClient
         }
         catch (Exception ex)
         {
-            return (JsonConvert.SerializeObject(ex)); //ex.Message);
+            return (ex.Message);
         }
     }
 }
