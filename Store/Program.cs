@@ -1,4 +1,6 @@
 using Dapr.Client;
+using Microsoft.AspNetCore.DataProtection;
+using Newtonsoft.Json.Linq;
 using Refit;
 using Store;
 
@@ -62,6 +64,8 @@ public interface IStoreBackendClient
 
     [Get("/secret/{secretStore}/{secretName}")]
     Task<string> GetSecret(string secretStore, string secretName);
+
+    Task<string> GetConfiguration(string configStore, List<string> keys);
 }
 
 public class StoreBackendClient : IStoreBackendClient
@@ -97,6 +101,27 @@ public class StoreBackendClient : IStoreBackendClient
             var secretValue = string.Join(", ", secret);
 
             return (secretValue);
+
+            //return client.GetType().ToString();
+        }
+        catch (Exception ex)
+        {
+            return (ex.Message);
+        }
+    }
+
+    public async Task<string> GetConfiguration(string configStore, List<string> keys)
+    {
+        try
+        {
+            //const string DAPR_SECRET_STORE = "localsecretstore";
+            var client = new DaprClientBuilder().Build();
+
+            //// Get secret from a local secret store
+            var configuration = await client.GetConfiguration(configStore, keys);
+            var value = string.Join(", ", configuration.Items.Values); ;
+
+            return (value);
 
             //return client.GetType().ToString();
         }
