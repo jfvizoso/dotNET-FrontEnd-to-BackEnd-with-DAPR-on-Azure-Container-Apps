@@ -119,7 +119,7 @@ public class StoreBackendClient : IStoreBackendClient
 
             //// Get secret from a local secret store
             var configuration = await client.GetConfiguration(configStore, keys);
-            var value = string.Join(", ", configuration.Items.Values); ;
+            var value = string.Join(", ", configuration.Items.Select(i => i.Value.Value)); 
 
             return (value);
 
