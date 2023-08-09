@@ -1,5 +1,6 @@
 using Dapr.Client;
 using Microsoft.AspNetCore.DataProtection;
+using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 using Refit;
 using Store;
@@ -127,7 +128,7 @@ public class StoreBackendClient : IStoreBackendClient
         }
         catch (Exception ex)
         {
-            return (ex.Message);
+            return (JsonConvert.SerializeObject(ex)); //ex.Message);
         }
     }
 }
